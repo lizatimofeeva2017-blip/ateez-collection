@@ -197,7 +197,7 @@ auth.onAuthStateChanged(function(user) {
 });
 
 function signInWithGoogle(){var p=new firebase.auth.GoogleAuthProvider();auth.signInWithRedirect(p);showToast('перенаправляем...');}
-}
+
 
 function signOut() {
     auth.signOut();
