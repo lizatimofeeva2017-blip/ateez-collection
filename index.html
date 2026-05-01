@@ -198,11 +198,10 @@ auth.onAuthStateChanged(function(user) {
 
 function signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    // Используем redirect вместо popup (работает везде)
-    auth.signInWithRedirect(provider).catch(function(error) {
-        showToast('ошибка входа 😢');
-        console.log(error);
+    provider.setCustomParameters({
+        prompt: 'select_account'
     });
+    auth.signInWithRedirect(provider);
 }
 
 function signOut() {
