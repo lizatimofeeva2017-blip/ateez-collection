@@ -196,8 +196,22 @@ auth.onAuthStateChanged(function(user) {
     }
 });
 
-function signInWithGoogle(){var p=new firebase.auth.GoogleAuthProvider();auth.signInWithRedirect(p);showToast('перенаправляем...');}
-
+function signInWithGoogle(){
+    var p = new firebase.auth.GoogleAuthProvider();
+    p.setCustomParameters({prompt:'select_account'});
+    auth.signInWithPopup(p).then(function(r){
+        showToast('✅ вход выполнен!');
+    }).catch(function(e){
+        console.log(e.code);
+        if(e.code === 'auth/popup-blocked'){
+            showToast('разрешите всплывающие окна ⚠️');
+        } else if(e.code === 'auth/popup-closed-by-user'){
+            showToast('вход отменён');
+        } else {
+            showToast('ошибка: '+e.code);
+        }
+    });
+}
 
 function signOut() {
     auth.signOut();
