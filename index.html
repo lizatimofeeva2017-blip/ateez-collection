@@ -198,9 +198,10 @@ auth.onAuthStateChanged(function(user) {
 
 function signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).catch(function(error) {
-        // Fallback для мобильных
-        auth.signInWithRedirect(provider);
+    // Используем redirect вместо popup (работает везде)
+    auth.signInWithRedirect(provider).catch(function(error) {
+        showToast('ошибка входа 😢');
+        console.log(error);
     });
 }
 
