@@ -196,19 +196,10 @@ auth.onAuthStateChanged(function(user) {
     }
 });
 
-function signInWithGoogle() {
+ffunction signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider).then(function(result) {
-        // Успешно!
-        showToast('✅ вход выполнен!');
-    }).catch(function(error) {
-        // Если popup заблокирован — пробуем redirect
-        if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
-            auth.signInWithRedirect(provider);
-        } else {
-            showToast('ошибка входа 😢');
-        }
-    });
+    auth.signInWithRedirect(provider);
+    showToast('перенаправляем на Google...');
 }
 
 function signOut() {
