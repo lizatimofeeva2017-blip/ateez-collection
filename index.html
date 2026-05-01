@@ -196,10 +196,10 @@ auth.onAuthStateChanged(function(user) {
     }
 });
 
-ffunction signInWithGoogle() {
+function signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
     auth.signInWithRedirect(provider);
-    showToast('перенаправляем на Google...');
+    showToast('перенаправляем на Google...');}
 }
 
 function signOut() {
