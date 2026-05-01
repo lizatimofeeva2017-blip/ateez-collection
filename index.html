@@ -198,10 +198,17 @@ auth.onAuthStateChanged(function(user) {
 
 function signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
-    provider.setCustomParameters({
-        prompt: 'select_account'
+    auth.signInWithPopup(provider).then(function(result) {
+        // Успешно!
+        showToast('✅ вход выполнен!');
+    }).catch(function(error) {
+        // Если popup заблокирован — пробуем redirect
+        if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+            auth.signInWithRedirect(provider);
+        } else {
+            showToast('ошибка входа 😢');
+        }
     });
-    auth.signInWithRedirect(provider);
 }
 
 function signOut() {
